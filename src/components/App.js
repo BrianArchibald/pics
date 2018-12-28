@@ -1,16 +1,29 @@
 import React from 'react';
+import unsplash from '../api/unsplash';
 import SearchBar from './SearchBar';
+import ImageList from './ImageList';
+
 
 class App extends React.Component {
-	onSearchSumbit(term) {
-		console.log(term);
-	}
+	state = { images: [] };
+
+	onSearchSumbit = async (term) => {            // Can't use async with .then, different systems
+		const response = await unsplash.get('/search/photos', {     // axios.get('https://api.unsplash.com/search/photos' {  without async
+			params: { query: term },
+		});
+		// .then((response) => {   // You can use promise and .then for response 
+		// 	console.log(response);
+		// });
+
+		this.setState({ images: response.data.results });
+	};
 
 	render() {
 
 		return (
 			<div className="ui container" style={{marginTop: '10px'}}>
 				<SearchBar onSubmit={this.onSearchSumbit}/>
+				<ImageList images={this.state.images}/>
 			</div>
 		);
 	}
