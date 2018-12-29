@@ -1,3 +1,5 @@
+## React project accessing the Unsplash API and displaying a set of pics from a search term entered.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
